@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 
 namespace Wingsail_Rib_Stress
 {
@@ -150,6 +151,37 @@ namespace Wingsail_Rib_Stress
             return EvaluateIntegralBound(b) - EvaluateIntegralBound(a);
         }
 
+        /// <summary>
+        /// multiplies the polynomial by a constant
+        /// </summary>
+        /// <param name="c">the constant to multiply by</param>
+        public void MultiplyByConstant(double c)
+        {
+            for (int i = 0; i < coefficientList.Count; i++)
+                coefficientList[i] *= c;
+        }
+
+        public void AddPolynomial(PolynomialCalculus add)
+        {
+            if (add.coefficientList.Count <= coefficientList.Count)
+            {
+                for (int i = 0; i < add.coefficientList.Count; i++)
+                {
+                    coefficientList[coefficientList.Count - i - 1] += add.coefficientList[add.coefficientList.Count - i - 1];
+                }
+            }
+            else
+            {
+                for (int i = 0; i < add.coefficientList.Count; i++)
+                {
+                    if (coefficientList.Count - i - 1 >= 0)
+                        coefficientList[coefficientList.Count - i - 1] += add.coefficientList[add.coefficientList.Count - i - 1];
+                    else
+                        coefficientList.Insert(0, add.coefficientList[add.coefficientList.Count - i - 1]);
+                }
+            }
+        }
+
         //--------------------------------------------------------------------------//
         //You may add helper methods below here. Follow the specs and document well.//
         //--------------------------------------------------------------------------//
@@ -179,5 +211,18 @@ namespace Wingsail_Rib_Stress
 
             return result;
         }
+
+        //------------------------//
+        //IClonable implementation//
+        //------------------------//
+
+        public PolynomialCalculus Clone()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (double coefficient in coefficientList)
+                sb.Append($"{coefficient} ");
+            return new PolynomialCalculus(sb.ToString());
+        }
+
     }
 }
