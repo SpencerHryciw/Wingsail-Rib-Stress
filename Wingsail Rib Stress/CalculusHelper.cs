@@ -161,6 +161,10 @@ namespace Wingsail_Rib_Stress
                 coefficientList[i] *= c;
         }
 
+        /// <summary>
+        /// Adds two polynomials together
+        /// </summary>
+        /// <param name="add">the polynomial being added to this polynomial</param>
         public void AddPolynomial(PolynomialCalculus add)
         {
             if (add.coefficientList.Count <= coefficientList.Count)
@@ -216,6 +220,10 @@ namespace Wingsail_Rib_Stress
         //IClonable implementation//
         //------------------------//
 
+        /// <summary>
+        /// Clones this polynomial
+        /// </summary>
+        /// <returns>a new object which is a clone of this polynomial</returns>
         public PolynomialCalculus Clone()
         {
             StringBuilder sb = new StringBuilder();
