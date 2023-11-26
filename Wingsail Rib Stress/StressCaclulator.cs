@@ -12,13 +12,12 @@ namespace Wingsail_Rib_Stress
         //Key assumptions//
         //---------------//
 
-        //each cross section will be treated as a rectangle
         //the mass of the wingsail will be ignored
         //the only aerodynamic forces acting on the wingsail will be drag
         //the trim tab torque will be ignored
         //the loading conditions will be 40 knots of wind at 0 degrees or 90 degrees angle of attack
         //at 0 degrees we will use the NACA 0018 drag numbers
-        //at 90 degrees we will approximate the airfoil with a smooth plate
+        //at 90 degrees we will approximate the airfoil with a rectangular cross section
 
         static double windSpeed = 20.5778; //m/s
         static double airPressure = 101325; //Pa
