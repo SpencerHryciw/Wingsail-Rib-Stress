@@ -145,29 +145,28 @@ namespace Wingsail_Rib_Stress
                 }
             }
 
-            //-------------//
-            //print results//
-            //-------------//
+            //-------//
+            //results//
+            //-------//
 
-            Console.WriteLine("shear forces");
+            //
             double shearSum = 0;
+            double inwardSum = 0;
+            double[] ribFrictionCoefficients = new double[ribLocations.Length];
+
+            //print everything as well as find the sums and friction coefficients
+            Console.WriteLine("rib forces");
+            
             for (int i = 0; i < shearForce90Deg.Length; i++)
             {
                 shearSum += shearForce90Deg[i];
-                Console.WriteLine($"the rib at {Math.Round(wingHeight * ribLocations[i], 3)}m has {Math.Round(shearForce90Deg[i], 3)}N of shear");
-            }
-            Console.WriteLine($"the total shear on the ribs is {Math.Round(shearSum, 3)}N\n");
-
-            Console.WriteLine("inward forces");
-            double inwardSum = 0;
-            for (int i = 0; i < inwardForce90Deg.Length; i++)
-            {
                 inwardSum += inwardForce90Deg[i];
-                Console.WriteLine($"the rib at {Math.Round(wingHeight * ribLocations[i], 3)}m has {Math.Round(inwardForce90Deg[i], 3)}N of inward force");
+                ribFrictionCoefficients[i] = shearForce90Deg[i] / inwardForce90Deg[i];
+                Console.WriteLine($"the rib at {Math.Round(wingHeight * ribLocations[i], 3)} m has {Math.Round(inwardForce90Deg[i], 3)} N inward, {Math.Round(shearForce90Deg[i], 3)} N of shear, and a friction coefficient of {Math.Round(ribFrictionCoefficients[i], 3)}");
             }
-            Console.WriteLine($"the total inward force on the ribs is {Math.Round(inwardSum, 3)}N\n");
 
-            Console.WriteLine($"the expenced inward force is {2 * dynamicPressure}N");
+            Console.WriteLine($"\nthe total forces are {Math.Round(inwardSum, 3)} N inward and {Math.Round(shearSum, 3)} N shear");
+            Console.WriteLine($"the expected forces are {Math.Round(2.005 * dynamicPressure, 3)} N inward and 0 N shear");
         }
     }
 }
