@@ -151,21 +151,23 @@ namespace Wingsail_Rib_Stress
 
             Console.WriteLine("shear forces");
             double shearSum = 0;
-            foreach (double force in  shearForce90Deg)
+            for (int i = 0; i < shearForce90Deg.Length; i++)
             {
-                Console.WriteLine(force);
-                shearSum += force;
+                shearSum += shearForce90Deg[i];
+                Console.WriteLine($"the rib at {Math.Round(wingHeight * ribLocations[i], 3)}m has {Math.Round(shearForce90Deg[i], 3)}N of shear");
             }
-            Console.WriteLine($"total: {shearSum}");
+            Console.WriteLine($"the total shear on the ribs is {Math.Round(shearSum, 3)}N\n");
 
             Console.WriteLine("inward forces");
             double inwardSum = 0;
-            foreach (double force in inwardForce90Deg)
+            for (int i = 0; i < inwardForce90Deg.Length; i++)
             {
-                Console.WriteLine(force);
-                inwardSum += force;
+                inwardSum += inwardForce90Deg[i];
+                Console.WriteLine($"the rib at {Math.Round(wingHeight * ribLocations[i], 3)}m has {Math.Round(inwardForce90Deg[i], 3)}N of inward force");
             }
-            Console.WriteLine($"total: {inwardSum}");
+            Console.WriteLine($"the total inward force on the ribs is {Math.Round(inwardSum, 3)}N\n");
+
+            Console.WriteLine($"the expenced inward force is {2 * dynamicPressure}N");
         }
     }
 }
