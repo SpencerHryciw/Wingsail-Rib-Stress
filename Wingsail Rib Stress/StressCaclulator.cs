@@ -145,7 +145,7 @@ namespace Wingsail_Rib_Stress
                     //b = wingHeight * 0.5 * ribLocations[i + 1]
 
                     inwardForce90Deg[i] = dynamicPressure * chordLength.EvaluateFunctionIntegral(0, wingHeight * 0.5 * ribLocations[i + 1]);
-                    shearForce90Deg[i] = airfoilWidthCoefficient * dynamicPressure * 0.5 * ((chordLength.EvaluateFunction(wingHeight * 0.5 * ribLocations[i + 1]) * chordLength.EvaluateFunction(wingHeight * 0.5 * ribLocations[i + 1])) - (chordLength.EvaluateFunction(0) * chordLength.EvaluateFunction(0)));
+                    shearForce90Deg[i] = airfoilWidthCoefficient * dynamicPressure * 0.25 * ((chordLength.EvaluateFunction(wingHeight * 0.5 * ribLocations[i + 1]) * chordLength.EvaluateFunction(wingHeight * 0.5 * ribLocations[i + 1])) - (chordLength.EvaluateFunction(0) * chordLength.EvaluateFunction(0)));
                 }
                 else if (i == ribLocations.Length - 1)
                 {
@@ -153,7 +153,7 @@ namespace Wingsail_Rib_Stress
                     //b = wingHeight
 
                     inwardForce90Deg[i] = dynamicPressure * chordLength.EvaluateFunctionIntegral(wingHeight * 0.5 * (1 + ribLocations[i - 1]), wingHeight);
-                    shearForce90Deg[i] = airfoilWidthCoefficient * dynamicPressure * 0.5 * ((chordLength.EvaluateFunction(wingHeight) * chordLength.EvaluateFunction(wingHeight)) - (chordLength.EvaluateFunction(wingHeight * 0.5 * (1 + ribLocations[i - 1])) * chordLength.EvaluateFunction(wingHeight * 0.5 * (1 + ribLocations[i - 1]))));
+                    shearForce90Deg[i] = airfoilWidthCoefficient * dynamicPressure * 0.25 * ((chordLength.EvaluateFunction(wingHeight) * chordLength.EvaluateFunction(wingHeight)) - (chordLength.EvaluateFunction(wingHeight * 0.5 * (1 + ribLocations[i - 1])) * chordLength.EvaluateFunction(wingHeight * 0.5 * (1 + ribLocations[i - 1]))));
                 }
                 else
                 {
@@ -161,7 +161,7 @@ namespace Wingsail_Rib_Stress
                     //b = wingHeight * 0.5 * (ribLocations[i] + ribLocations[i + 1])
 
                     inwardForce90Deg[i] = dynamicPressure * chordLength.EvaluateFunctionIntegral(wingHeight * 0.5 * (ribLocations[i] + ribLocations[i - 1]), wingHeight * 0.5 * (ribLocations[i] + ribLocations[i + 1]));
-                    shearForce90Deg[i] = airfoilWidthCoefficient * dynamicPressure * 0.5 * ((chordLength.EvaluateFunction(wingHeight * 0.5 * (ribLocations[i] + ribLocations[i + 1])) * chordLength.EvaluateFunction(wingHeight * 0.5 * (ribLocations[i] + ribLocations[i + 1]))) - (chordLength.EvaluateFunction(wingHeight * 0.5 * (ribLocations[i] + ribLocations[i - 1])) * chordLength.EvaluateFunction(wingHeight * 0.5 * (ribLocations[i] + ribLocations[i - 1]))));
+                    shearForce90Deg[i] = airfoilWidthCoefficient * dynamicPressure * 0.25 * ((chordLength.EvaluateFunction(wingHeight * 0.5 * (ribLocations[i] + ribLocations[i + 1])) * chordLength.EvaluateFunction(wingHeight * 0.5 * (ribLocations[i] + ribLocations[i + 1]))) - (chordLength.EvaluateFunction(wingHeight * 0.5 * (ribLocations[i] + ribLocations[i - 1])) * chordLength.EvaluateFunction(wingHeight * 0.5 * (ribLocations[i] + ribLocations[i - 1]))));
                 }
             }
 
