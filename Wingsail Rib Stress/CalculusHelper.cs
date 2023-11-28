@@ -152,45 +152,6 @@ namespace Wingsail_Rib_Stress
         }
 
         /// <summary>
-        /// multiplies the polynomial by a constant
-        /// </summary>
-        /// <param name="c">the constant to multiply by</param>
-        public void MultiplyByConstant(double c)
-        {
-            for (int i = 0; i < coefficientList.Count; i++)
-                coefficientList[i] *= c;
-        }
-
-        /// <summary>
-        /// Adds two polynomials together
-        /// </summary>
-        /// <param name="add">the polynomial being added to this polynomial</param>
-        public void AddPolynomial(PolynomialCalculus add)
-        {
-            if (add.coefficientList.Count <= coefficientList.Count)
-            {
-                for (int i = 0; i < add.coefficientList.Count; i++)
-                {
-                    coefficientList[coefficientList.Count - i - 1] += add.coefficientList[add.coefficientList.Count - i - 1];
-                }
-            }
-            else
-            {
-                for (int i = 0; i < add.coefficientList.Count; i++)
-                {
-                    if (coefficientList.Count - i - 1 >= 0)
-                        coefficientList[coefficientList.Count - i - 1] += add.coefficientList[add.coefficientList.Count - i - 1];
-                    else
-                        coefficientList.Insert(0, add.coefficientList[add.coefficientList.Count - i - 1]);
-                }
-            }
-        }
-
-        //--------------------------------------------------------------------------//
-        //You may add helper methods below here. Follow the specs and document well.//
-        //--------------------------------------------------------------------------//
-
-        /// <summary>
         /// Helper method to give the integral of one bound of an integral.
         /// </summary>
         /// <param name="input"> the "x" value in the integral, a valid double </param>
@@ -216,10 +177,6 @@ namespace Wingsail_Rib_Stress
             return result;
         }
 
-        //------------------------//
-        //IClonable implementation//
-        //------------------------//
-
         /// <summary>
         /// Clones this polynomial
         /// </summary>
@@ -232,5 +189,43 @@ namespace Wingsail_Rib_Stress
             return new PolynomialCalculus(sb.ToString());
         }
 
+        /// <summary>
+        /// multiplies the polynomial by a constant
+        /// </summary>
+        /// <param name="c">the constant to multiply by</param>
+        public void MultiplyByConstant(double c)
+        {
+            for (int i = 0; i < coefficientList.Count; i++)
+                coefficientList[i] *= c;
+        }
+
+        /// <summary>
+        /// Adds two polynomials together
+        /// </summary>
+        /// <param name="add">the polynomial being added to this polynomial</param>
+        public void AddPolynomial(PolynomialCalculus add)
+        {
+            if (add.coefficientList.Count <= coefficientList.Count)
+            {
+                for (int i = 0; i < add.coefficientList.Count; i++)
+                {
+                    coefficientList[coefficientList.Count - i - 1] += add.coefficientList[add.coefficientList.Count - i - 1];
+                }
+                while (coefficientList[0] == 0)
+                {
+                    coefficientList.RemoveAt(0);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < add.coefficientList.Count; i++)
+                {
+                    if (coefficientList.Count - i - 1 >= 0)
+                        coefficientList[coefficientList.Count - i - 1] += add.coefficientList[add.coefficientList.Count - i - 1];
+                    else
+                        coefficientList.Insert(0, add.coefficientList[add.coefficientList.Count - i - 1]);
+                }
+            }
+        }
     }
 }
