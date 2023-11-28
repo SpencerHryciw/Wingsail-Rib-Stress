@@ -8,20 +8,32 @@ namespace Wingsail_Rib_Stress
 {
     static class StressCaclulator
     {
-        //---------------//
-        //Key assumptions//
-        //---------------//
+        //---------------------//
+        //   Key assumptions   //
+        //---------------------//
 
         //the mass of the wingsail will be ignored
-        //the only aerodynamic forces acting on the wingsail will be drag
+        //the only aerodynamic forces acting on the wingsail will be dynamic pressure / drag
         //the trim tab torque will be ignored
         //the loading conditions will be 40 knots of wind at 0 degrees or 90 degrees angle of attack
         //at 0 degrees we will use the NACA 0018 drag numbers
-        //at 90 degrees we will approximate the airfoil with a rectangular cross section
+        //at 90 degrees we will approximate the airfoil with a rectangular cross section and use dynamic pressure
+
+        //----------------------//
+        //   input parameters   //
+        //vvvvvvvvvvvvvvvvvvvvvv//
+
+        //---------//
+        //   air   //
+        //---------//
 
         static double windSpeed = 20.5778; //m/s
         //static double airPressure = 101325; //Pa
         static double airDensity = 1.225; //kg/m^3
+
+        //----------//
+        //   wing   //
+        //----------//
 
         //the wing is 2.762 m tall
         static double wingHeight = 2.762;
@@ -35,7 +47,10 @@ namespace Wingsail_Rib_Stress
         static PiecewisePolynomial leadingEdge = new(); //m
         static PiecewisePolynomial trailingEdge = new(); //m
 
-        //various coefficients for spline
+        //------------//
+        //   spline   //
+        //------------//
+
         static double x1 = 0;
         static double x2 = 0.305;
         static double x3 = 1.686;
@@ -58,13 +73,18 @@ namespace Wingsail_Rib_Stress
         static double b2 = -0.145078184269;
         static double b3 = 0.0215592894191;
 
+        //--------------//
+        //   !!ribs!!   //
+        //--------------//
+
         //the locations of the ribs where 0 is the bottom of the wing, and 1 is the top
         static double[] ribLocations = new double[] { 0, 1.0 / 6.0, 1.0 / 3.0, 0.5, 2.0 / 3.0, 5.0 / 6.0, 1 };
 
         public static void Main()
         {
-            //initialize trailingEdge
-            //the trailing edge of the wing follows a piecewise equation
+            //-----------------------------//
+            //   initializing the spline   //
+            //-----------------------------//
 
             //the first linear interpolation
             PolynomialCalculus f1 = new PolynomialCalculus($"{m1}, {y1 - (m1 * x1)}");
@@ -97,15 +117,15 @@ namespace Wingsail_Rib_Stress
             PiecewisePolynomial chordLength = trailingEdge.Clone();
             chordLength.MultiplyByConstant(4.0 / 3.0);
 
-            //--------------------------------------//
-            //0 degrees angle of attack calculations//
-            //--------------------------------------//
+            //--------------------------------------------//
+            //   0 degrees angle of attack calculations   //
+            //--------------------------------------------//
 
             //im so lost in the sauce
 
-            //---------------------------------------//
-            //90 degrees angle of attack calculations//
-            //---------------------------------------//
+            //---------------------------------------------//
+            //   90 degrees angle of attack calculations   //
+            //---------------------------------------------//
 
             //dynamic pressure = 1/2 * rho * V^2
             double dynamicPressure = 0.5 * airDensity * windSpeed * windSpeed;
@@ -145,9 +165,9 @@ namespace Wingsail_Rib_Stress
                 }
             }
 
-            //-------//
-            //results//
-            //-------//
+            //-------------//
+            //   results   //
+            //-------------//
 
             //defining variables for the force sums and friction coefficients
             double shearSum = 0;
