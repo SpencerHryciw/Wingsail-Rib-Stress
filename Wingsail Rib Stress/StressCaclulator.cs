@@ -149,7 +149,7 @@ namespace Wingsail_Rib_Stress
             //results//
             //-------//
 
-            //
+            //defining variables for the force sums and friction coefficients
             double shearSum = 0;
             double inwardSum = 0;
             double[] ribFrictionCoefficients = new double[ribLocations.Length];
@@ -166,7 +166,7 @@ namespace Wingsail_Rib_Stress
             }
 
             Console.WriteLine($"\nthe total forces are {Math.Round(inwardSum, 3)} N inward and {Math.Round(shearSum, 3)} N shear");
-            Console.WriteLine($"the expected forces are {Math.Round(2.005 * dynamicPressure, 3)} N inward and 0 N shear");
+            Console.WriteLine($"the expected forces are {Math.Round(2.004 * dynamicPressure, 3)} N inward and 0 N shear");
         }
     }
 }
