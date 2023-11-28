@@ -67,30 +67,30 @@ namespace Wingsail_Rib_Stress
             //the trailing edge of the wing follows a piecewise equation
 
             //the first linear interpolation
-            PolynomialCalculus f1 = new PolynomialCalculus($"{m1}, {y1 - m1 * x1}");
+            PolynomialCalculus f1 = new PolynomialCalculus($"{m1}, {y1 - (m1 * x1)}");
             //adding the cubic correction
             f1.AddPolynomial(new PolynomialCalculus($"{a1 + b1}, {(-2 * a1 * x2) - (a1 * x1) - (2 * b1 * x1) - (b1 * x2)}, {(a1 * x2 * x2) + (2 * a1 * x1 * x2) + (b1 * x1 * x1) + (2 * b1 * x1 * x2)}, {-(a1 * x1 * x2 * x2) - (b1 * x1 * x1 * x2)}"));
             //adding the element to the piecewise equation
             trailingEdge.AddFunction(f1, x1, x2);
 
             //the first linear interpolation
-            PolynomialCalculus f2 = new PolynomialCalculus($"{m2}, {y2 - m2 * x2}");
+            PolynomialCalculus f2 = new PolynomialCalculus($"{m2}, {y2 - (m2 * x2)}");
             //adding the cubic correction
             f2.AddPolynomial(new PolynomialCalculus($"{a2 + b2}, {-(2 * a2 * x3) - (a2 * x2) - (2 * b2 * x2) - (b2 * x3)}, {(a2 * x3 * x3) + (2 * a2 * x2 * x3) + (b2 * x2 * x2) + (2 * b2 * x2 * x3)}, {-(a2 * x2 * x3 * x3) - (b2 * x2 * x2 * x3)}"));
             //adding the element to the piecewise equation
             trailingEdge.AddFunction(f2, x2, x3);
 
             //the first linear interpolation
-            PolynomialCalculus f3 = new PolynomialCalculus($"{m3}, {y3 - m3 * x3}");
+            PolynomialCalculus f3 = new PolynomialCalculus($"{m3}, {y3 - (m3 * x3)}");
             //adding the cubic correction
-            f3.AddPolynomial(new PolynomialCalculus($"{a3 + b3}, {-(2 * a3 * x4) - (a3 * x3) - (2 * b3 * x3) - (b3 * x4)}, {(a3 * x4 * x4) + (2 * a3 * x3 * x4) + (b3 * x3 * x3) + (2 * b3 * x3 * x4)}, {-(a2 * x3 * x4 * x4) - (b2 * x3 * x3 * x4)}"));
+            f3.AddPolynomial(new PolynomialCalculus($"{a3 + b3}, {-(2 * a3 * x4) - (a3 * x3) - (2 * b3 * x3) - (b3 * x4)}, {(a3 * x4 * x4) + (2 * a3 * x3 * x4) + (b3 * x3 * x3) + (2 * b3 * x3 * x4)}, {-(a3 * x3 * x4 * x4) - (b3 * x3 * x3 * x4)}"));
             //adding the element to the piecewise equation
             trailingEdge.AddFunction(f3, x3, x4);
 
             //initialize leadingEdge
             //the leading edge of the wing is -1/3 times the leading edge
-            leadingEdge = trailingEdge.Clone();
-            leadingEdge.MultiplyByConstant(-1.0 / 3.0);
+            //leadingEdge = trailingEdge.Clone();
+            //leadingEdge.MultiplyByConstant(-1.0 / 3.0);
 
             //initialize the chord length
             //chord length = |leadingEdge - trailingEdge| = |-1/3 * trailingEdge - trailingEdge| = |-4/3 * trailingEdge| = 4/3 * trailingEdge
