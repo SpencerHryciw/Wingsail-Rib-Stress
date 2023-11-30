@@ -175,7 +175,7 @@ namespace Wingsail_Rib_Stress
             double[] ribFrictionCoefficients = new double[ribLocations.Length];
 
             //print everything as well as find the sums and friction coefficients
-            Console.WriteLine("rib forces");
+            Console.WriteLine($"rib forces at 90 degrees angle of attack and dynamic pressure of {Math.Round(dynamicPressure, 3)} Pa\n");
             
             for (int i = 0; i < shearForce90Deg.Length; i++)
             {
