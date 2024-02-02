@@ -51,6 +51,8 @@ namespace Wingsail_Rib_Stress
         //   spline   //
         //------------//
 
+        static double scaleFactor = 1.33;
+
         static double x1 = 0;
         static double x2 = 0.305;
         static double x3 = 1.686;
@@ -182,11 +184,20 @@ namespace Wingsail_Rib_Stress
                 shearSum += shearForce90Deg[i];
                 inwardSum += inwardForce90Deg[i];
                 ribFrictionCoefficients[i] = shearForce90Deg[i] / inwardForce90Deg[i];
-                Console.WriteLine($"the rib at {Math.Round(wingHeight * ribLocations[i], 3)} m has {Math.Round(inwardForce90Deg[i], 3)} N inward, {Math.Round(shearForce90Deg[i], 3)} N of shear, and a friction coefficient of {Math.Round(ribFrictionCoefficients[i], 3)}");
+                Console.WriteLine($"the rib at {Math.Round(wingHeight * ribLocations[i] * scaleFactor, 3)} m has {Math.Round(inwardForce90Deg[i], 3)} N inward, {Math.Round(shearForce90Deg[i], 3)} N of shear, and a friction coefficient of {Math.Round(ribFrictionCoefficients[i], 3)}");
             }
 
             Console.WriteLine($"\nthe total forces are {Math.Round(inwardSum, 3)} N inward and {Math.Round(shearSum, 3)} N shear");
-            Console.WriteLine($"the expected forces are {Math.Round(2.004 * dynamicPressure, 3)} N inward and 0 N shear");
+            Console.WriteLine($"the expected forces are {Math.Round(2.004 * scaleFactor * scaleFactor * dynamicPressure, 3)} N inward and 0 N shear");
+
+            //-------------------//
+            //   average chord   //
+            //-------------------//
+
+            Console.WriteLine(chordLength.EvaluateFunctionIntegral(0, wingHeight) / wingHeight);
+            Console.WriteLine(wingHeight);
+            Console.WriteLine(windSpeed);
+            Console.WriteLine(dynamicPressure);
         }
     }
 }

@@ -11,6 +11,8 @@ namespace Wingsail_Rib_Stress
         List<PolynomialCalculus> functions = new List<PolynomialCalculus>();
         List<(double, double)> domains = new List<(double, double)>();
 
+        static double scaleFactor = 1.33;
+
         public PiecewisePolynomial()
         {
             //empty default constructor
@@ -46,7 +48,7 @@ namespace Wingsail_Rib_Stress
                 }
             }
 
-            return result;
+            return result * scaleFactor;
         }
 
         /// <summary>
@@ -96,7 +98,7 @@ namespace Wingsail_Rib_Stress
                 result += functions[endDomain].EvaluatePolynomialIntegral(domains[endDomain].Item1, b);
             }
 
-            return result;
+            return result * scaleFactor * scaleFactor;
         }
 
         /// <summary>
